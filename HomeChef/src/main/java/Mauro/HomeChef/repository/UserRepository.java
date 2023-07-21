@@ -10,6 +10,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByAnagraficaUtente_CodiceFiscale(String codiceFiscale);
 
-
-
 }
