@@ -19,6 +19,32 @@ public class RicettaService {
     @Autowired
     RicettaRepository ricettaRepository;
 
+    public List<Ricetta> ricette(List<String> ingredienti, String tipoPiatto, long pageSize, long pageNumber) {
+        if (ingredienti.size() < 10) {
+            switch (ingredienti.size()) {
+                case 0:
+                    return ricettaRepository.findRicettaBy5IngredientiAndTipoPiatto(tipoPiatto, "", "", "", "", "")
+                        .stream().skip(pageNumber * pageSize).limit(pageSize).toList();
+                case 1:
+                    return ricettaRepository.findRicettaBy5IngredientiAndTipoPiatto(tipoPiatto, ingredienti.get(0), "", "", "", "")
+                        .stream().skip(pageNumber * pageSize).limit(pageSize).toList();
+                case 2:
+                    return ricettaRepository.findRicettaBy5IngredientiAndTipoPiatto(tipoPiatto, ingredienti.get(0), ingredienti.get(1), "", "", "")
+                        .stream().skip(pageNumber * pageSize).limit(pageSize).toList();
+                case 3:
+                    return ricettaRepository.findRicettaBy5IngredientiAndTipoPiatto(tipoPiatto, ingredienti.get(0), ingredienti.get(1), ingredienti.get(2), "", "")
+                        .stream().skip(pageNumber * pageSize).limit(pageSize).toList();
+                case 4:
+                    return ricettaRepository.findRicettaBy5IngredientiAndTipoPiatto(tipoPiatto, ingredienti.get(0), ingredienti.get(1), ingredienti.get(2), ingredienti.get(3), "")
+                        .stream().skip(pageNumber * pageSize).limit(pageSize).toList();
+                case 5:
+                    return ricettaRepository.findRicettaBy5IngredientiAndTipoPiatto(tipoPiatto, ingredienti.get(0), ingredienti.get(1), ingredienti.get(2), ingredienti.get(3), ingredienti.get(4))
+                        .stream().skip(pageNumber * pageSize).limit(pageSize).toList();
+            }
+        }
+        throw new RuntimeException("Il limite di ingredienti è 5.");
+    }
+
 //    public void importaRicette(String path) {
 //        List<Ricetta> ricette = new ArrayList<>();
 //
