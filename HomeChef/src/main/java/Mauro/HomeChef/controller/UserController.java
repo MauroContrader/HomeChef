@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,5 +56,6 @@ public class UserController {
     public ResponseEntity<AnagraficaUtente> getAnagraficaUtenteById(@RequestParam Long id) {
         return ResponseEntity.ok(userService.getAnagraficaUtenteById(id));
     }
+
 
 }

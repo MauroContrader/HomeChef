@@ -42,11 +42,11 @@ public class AuthenticationController {
         return ResponseEntity.ok(authService.cambioPassword(username, nuovaPassword));
     }
 
-    @PostMapping("/validita-token")
-    private ResponseEntity<Boolean> validitaToken(@RequestParam String token,
-                                                  @RequestParam String username) {
-        return ResponseEntity.ok(authService.validitaToken(token, username));
-    }
+//    @PostMapping("/validita-token")
+//    private ResponseEntity<Boolean> validitaToken(@RequestParam String token,
+//                                                  @RequestParam String username) {
+//        return ResponseEntity.ok(authService.validitaToken(token, username));
+//    }
 
     @PostMapping("/invia-email")
     @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
