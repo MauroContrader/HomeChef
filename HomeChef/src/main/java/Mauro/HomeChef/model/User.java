@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,6 +33,10 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @JoinTable
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Ricetta> ricettePreferite;
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private AnagraficaUtente anagraficaUtente;
 
@@ -39,6 +44,7 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

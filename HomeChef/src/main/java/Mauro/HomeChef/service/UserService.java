@@ -5,6 +5,7 @@ import Mauro.HomeChef.dto.Requests.AnagraficaUtenteRequest;
 import Mauro.HomeChef.model.AnagraficaUtente;
 import Mauro.HomeChef.model.User;
 import Mauro.HomeChef.repository.AnagraficaUtenteRepository;
+import Mauro.HomeChef.repository.RicettaRepository;
 import Mauro.HomeChef.repository.UserRepository;
 import Mauro.HomeChef.security.HCSecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,13 @@ import java.util.Objects;
 public class UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    AnagraficaUtenteRepository anagraficaUtenteRepository;
+    private AnagraficaUtenteRepository anagraficaUtenteRepository;
+
+    @Autowired
+    private RicettaRepository ricettaRepository;
 
     public List<User> getAll(int pageSize, int pageNumber, Role role) {
 
@@ -84,4 +88,5 @@ public class UserService {
         else
             throw new RuntimeException("L'utente non ha inserito un anagrafica utente.");
     }
+
 }

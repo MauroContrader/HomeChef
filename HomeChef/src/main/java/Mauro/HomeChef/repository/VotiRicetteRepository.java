@@ -1,14 +1,16 @@
 package Mauro.HomeChef.repository;
 
-import Mauro.HomeChef.model.AnagraficaUtente;
+import Mauro.HomeChef.model.VotiRicette;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Transactional
 @Repository
-public interface AnagraficaUtenteRepository extends JpaRepository<AnagraficaUtente,Long> {
+public interface VotiRicetteRepository extends JpaRepository<VotiRicette, Long> {
 
-    AnagraficaUtente findByCodiceFiscale(String codiceFiscale);
+    boolean existsByUtente_IdAndRicetta_Id(Long id, Long id1);
+    
 
 }

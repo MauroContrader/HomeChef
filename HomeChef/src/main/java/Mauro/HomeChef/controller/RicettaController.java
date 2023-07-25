@@ -33,4 +33,36 @@ public class RicettaController {
         return ResponseEntity.ok(ricettaService.ricette(ingredienti, tipoPiatto, pageSize, pageNumber));
     }
 
+    @PostMapping("/ricetta-preferita")
+    @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
+    public ResponseEntity<String> salvaRicettaPreferita(@RequestBody Long idRicetta) {
+        return ResponseEntity.ok(ricettaService.salvaRicettaPreferita(idRicetta));
+    }
+
+    @PostMapping("/ricetta-non-preferita")
+    @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
+    public ResponseEntity<String> rimuoviRicettaPreferita(@RequestBody Long idRicetta) {
+        return ResponseEntity.ok(ricettaService.rimuoviRicettaPreferita(idRicetta));
+    }
+
+    @GetMapping("/vota-ricetta")
+    @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
+    public ResponseEntity<String> votaRicetta(@RequestParam int voto,
+                                              @RequestParam Long idRicetta) {
+        return ResponseEntity.ok(ricettaService.votaRicetta(voto, idRicetta));
+    }
+
+    @GetMapping("/ricette-preferite")
+    @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
+    public ResponseEntity<List<String>> ricettePreferite() {
+        return ResponseEntity.ok(ricettaService.listaRicettePreferite());
+    }
+
+    @GetMapping("/top-ricette")
+    @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
+    public ResponseEntity<List<String>> topRicette(@RequestParam int numeroElementi) {
+        return ResponseEntity.ok(ricettaService.ricettePiuVotate(numeroElementi));
+    }
+
+
 }

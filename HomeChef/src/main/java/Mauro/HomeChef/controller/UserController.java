@@ -34,7 +34,7 @@ public class UserController {
     public ResponseEntity<List<User>> getAll(@RequestParam(defaultValue = "20") int pageSize,
                                              @RequestParam(defaultValue = "0") int pageNumber,
                                              @RequestParam(defaultValue = "USER") Role role) {
-        return ResponseEntity.ok(userService.getAll(pageSize,pageNumber,role));
+        return ResponseEntity.ok(userService.getAll(pageSize, pageNumber, role));
     }
 
     @GetMapping("/anagraficaUtente-loggato")
@@ -47,7 +47,7 @@ public class UserController {
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
-    public ResponseEntity<AnagraficaUtente> patchAnagraficaUtente(@RequestBody HashMap<String,Object> request) {
+    public ResponseEntity<AnagraficaUtente> patchAnagraficaUtente(@RequestBody HashMap<String, Object> request) {
         return ResponseEntity.ok(userService.patchAnagraficaUtenteLoggato(request));
     }
 
@@ -56,6 +56,5 @@ public class UserController {
     public ResponseEntity<AnagraficaUtente> getAnagraficaUtenteById(@RequestParam Long id) {
         return ResponseEntity.ok(userService.getAnagraficaUtenteById(id));
     }
-
 
 }
