@@ -1,6 +1,7 @@
 package Mauro.HomeChef.controller;
 
 import Mauro.HomeChef.config.OpenApiConfig;
+import Mauro.HomeChef.dto.Requests.PortataRequest;
 import Mauro.HomeChef.model.Ricetta;
 import Mauro.HomeChef.service.RicettaService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -24,13 +25,14 @@ public class RicettaController {
 //        return ResponseEntity.ok().build();
 //    }
 
-    @GetMapping("/ricette")
+    @PostMapping("/ricette")
     @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
-    ResponseEntity<List<Ricetta>> ricette(@RequestParam String tipoPiatto,
-                                          @RequestParam(required = false) List<String> ingredienti,
-                                          @RequestParam(defaultValue = "20") long pageSize,
-                                          @RequestParam(defaultValue = "0") long pageNumber) {
-        return ResponseEntity.ok(ricettaService.ricette(ingredienti, tipoPiatto, pageSize, pageNumber));
+    ResponseEntity<List<Ricetta>> ricette(@RequestBody PortataRequest request) {
+        return ResponseEntity.ok(ricettaService.ricette(
+            request.getIngredienti(),
+            request.getTipoPiatto().name(),
+            request.getPageSize(),
+            request.getPageNumber()));
     }
 
     @PostMapping("/ricetta-preferita")
@@ -64,5 +66,9 @@ public class RicettaController {
         return ResponseEntity.ok(ricettaService.ricettePiuVotate(numeroElementi));
     }
 
-
+    @PostMapping("/ricetta-casuale-tipologia-ingredienti")
+    @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
+    public ResponseEntity<Ricetta> ricettaCasualeByTipologiaIngredienti(@RequestBody PortataRequest request) {
+        return ResponseEntity.ok(ricettaService.ricettaCasuale(request.getIngredienti(), request.getTipoPiatto().name()));
+    }
 }

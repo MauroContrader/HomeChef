@@ -25,8 +25,26 @@ public class RicettaService {
     @Autowired
     ClassificaRicetteRepository classificaRicetteRepository;
 
+    public Ricetta ricettaCasuale(List<String> ingredienti, String tipoPiatto) {
+        if (!ingredienti.isEmpty()) {
+            switch (ingredienti.size()) {
+                case 1:
+                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto, ingredienti.get(0), "", "", "", "");
+                case 2:
+                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto, ingredienti.get(0), ingredienti.get(1), "", "", "");
+                case 3:
+                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto, ingredienti.get(0), ingredienti.get(1), ingredienti.get(2), "", "");
+                case 4:
+                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto, ingredienti.get(0), ingredienti.get(1), ingredienti.get(2), ingredienti.get(3), "");
+                case 5:
+                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto, ingredienti.get(0), ingredienti.get(1), ingredienti.get(2), ingredienti.get(3), ingredienti.get(4));
+            }
+        }
+        return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto, "", "", "", "", "");
+    }
+
     public List<Ricetta> ricette(List<String> ingredienti, String tipoPiatto, long pageSize, long pageNumber) {
-        if (ingredienti.size() < 10) {
+        if (ingredienti.size() < 6) {
             switch (ingredienti.size()) {
                 case 0:
                     return ricettaRepository.findRicettaBy5IngredientiAndTipoPiatto(tipoPiatto, "", "", "", "", "")
@@ -110,7 +128,7 @@ public class RicettaService {
         List<String> nomiRicettePreferite = new ArrayList<>();
         ricettePreferite.forEach(ricetta ->
             nomiRicettePreferite.add(ricetta.getNome())
-            );
+        );
         return nomiRicettePreferite;
     }
 

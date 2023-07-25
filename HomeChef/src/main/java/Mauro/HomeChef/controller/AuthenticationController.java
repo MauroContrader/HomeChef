@@ -19,8 +19,10 @@ public class AuthenticationController {
 
     @Autowired
     AuthenticationManager authenticationManager;
+
     @Autowired
     AuthService authService;
+
     @Autowired
     EmailService emailService;
 
@@ -53,7 +55,7 @@ public class AuthenticationController {
     private ResponseEntity<Void> sendEmail(@RequestParam String to,
                                            @RequestParam String subject,
                                            @RequestParam String body) {
-        emailService.sendEmail(to,subject,body);
+        emailService.sendEmail(to, subject, body);
         return ResponseEntity.ok().build();
     }
 

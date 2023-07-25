@@ -30,5 +30,22 @@ public interface RicettaRepository extends JpaRepository<Ricetta, Long> {
                                                          @Param("ingrediente3") String ingrediente3,
                                                          @Param("ingrediente4") String ingrediente4,
                                                          @Param("ingrediente5") String ingrediente5);
+    @Query("SELECT r FROM Ricetta r WHERE r.tipoPiatto = :tipoPiatto ORDER BY RAND() LIMIT 1")
+    Ricetta findRicettaRandomByTipologia(@Param("tipoPiatto") String tipoPiatto);
+
+
+    @Query("SELECT r FROM Ricetta r WHERE r.tipoPiatto = :tipoPiatto " +
+        "AND r.ingredienti LIKE '%'||:ingrediente1||'%'" +
+        "AND r.ingredienti LIKE '%'||:ingrediente2||'%'" +
+        "AND r.ingredienti LIKE '%'||:ingrediente3||'%'" +
+        "AND r.ingredienti LIKE '%'||:ingrediente4||'%'" +
+        "AND r.ingredienti LIKE '%'||:ingrediente5||'%'" +
+        "ORDER BY RAND() LIMIT 1")
+    Ricetta findRicettaRandomByTipologiaEdIngredienti(@Param("tipoPiatto") String tipoPiatto,
+                                                      @Param("ingrediente1") String ingrediente1,
+                                                      @Param("ingrediente2") String ingrediente2,
+                                                      @Param("ingrediente3") String ingrediente3,
+                                                      @Param("ingrediente4") String ingrediente4,
+                                                      @Param("ingrediente5") String ingrediente5);
 }
 

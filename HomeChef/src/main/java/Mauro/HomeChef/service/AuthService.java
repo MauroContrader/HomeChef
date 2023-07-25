@@ -65,7 +65,7 @@ public class AuthService {
             emailService.sendEmail(
                 registerRequest.getUsername(),
                 "Conferma registrazione",
-                "Benvenuto su Salernoflix! Per favore conferma la tua iscrizione cliccando sul seguente link: \n" + linkAttivazione);
+                "Benvenuto su HomeChef! Per favore conferma la tua iscrizione cliccando sul seguente link: \n" + linkAttivazione);
             var jwtToken = jwtService.generateToken(user);
             return linkAttivazione;
         }
