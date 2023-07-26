@@ -35,13 +35,13 @@ public class RicettaController {
             request.getPageNumber()));
     }
 
-    @PostMapping("/ricetta-preferita")
+    @PostMapping("/imposta-ricetta-preferita")
     @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
     public ResponseEntity<String> salvaRicettaPreferita(@RequestBody Long idRicetta) {
         return ResponseEntity.ok(ricettaService.salvaRicettaPreferita(idRicetta));
     }
 
-    @PostMapping("/ricetta-non-preferita")
+    @PostMapping("/imposta-ricetta-non-preferita")
     @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
     public ResponseEntity<String> rimuoviRicettaPreferita(@RequestBody Long idRicetta) {
         return ResponseEntity.ok(ricettaService.rimuoviRicettaPreferita(idRicetta));

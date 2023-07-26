@@ -1,6 +1,7 @@
 package Mauro.HomeChef.dto.Requests;
 
 import Mauro.HomeChef.dto.Enum.TipoPiatto;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PortataRequest {
 
+    @Schema(defaultValue = "")
     private List<String> ingredienti;
 
     @Enumerated(EnumType.STRING)

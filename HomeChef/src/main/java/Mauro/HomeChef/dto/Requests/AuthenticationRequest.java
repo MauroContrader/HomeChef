@@ -1,5 +1,6 @@
 package Mauro.HomeChef.dto.Requests;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +16,6 @@ public class AuthenticationRequest {
 
     private String password;
 
+    @Schema(defaultValue = "false")
+    private Boolean rememberMe;
 }

@@ -28,7 +28,7 @@ public class User implements UserDetails {
 
     private LocalDateTime dataIscrizione;
 
-    private boolean emailVerificata;
+    private Boolean emailVerificata;
 
     @Enumerated(EnumType.STRING)
     private Role role;
