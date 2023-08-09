@@ -1,7 +1,13 @@
 package Mauro.HomeChef.service;
 
-import Mauro.HomeChef.model.*;
-import Mauro.HomeChef.repository.*;
+import Mauro.HomeChef.model.ClassificaRicette;
+import Mauro.HomeChef.model.Ricetta;
+import Mauro.HomeChef.model.User;
+import Mauro.HomeChef.model.VotiRicette;
+import Mauro.HomeChef.repository.ClassificaRicetteRepository;
+import Mauro.HomeChef.repository.RicettaRepository;
+import Mauro.HomeChef.repository.UserRepository;
+import Mauro.HomeChef.repository.VotiRicetteRepository;
 import Mauro.HomeChef.security.HCSecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

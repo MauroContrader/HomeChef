@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Repository
-public interface AnagraficaUtenteRepository extends JpaRepository<AnagraficaUtente,Long> {
+public interface AnagraficaUtenteRepository extends JpaRepository<AnagraficaUtente, Long> {
 
     AnagraficaUtente findByCodiceFiscale(String codiceFiscale);
 

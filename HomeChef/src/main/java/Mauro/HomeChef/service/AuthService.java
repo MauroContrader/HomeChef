@@ -24,14 +24,19 @@ public class AuthService {
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     AuthenticationManager authenticationManager;
+
     @Autowired
     UserRepository userRepository;
+
     @Autowired
     JwtService jwtService;
+
     @Autowired
     EmailService emailService;
+
     @Autowired
     AttivazioneAccountRepository attivazioneAccountRepository;
 
@@ -102,7 +107,7 @@ public class AuthService {
         AttivazioneAccount attivazioneAccount = attivazioneAccountRepository.findByCodiceDiSicurezza(codiceDiSicurezza);
         if (Objects.nonNull(attivazioneAccount)) {
             User user = userRepository.findById(attivazioneAccount.getUser().getId())
-                .orElseThrow(()-> new RuntimeException("Account non trovato in piattaforma."));
+                .orElseThrow(() -> new RuntimeException("Account non trovato in piattaforma."));
             user.setEmailVerificata(true);
             userRepository.save(user);
             attivazioneAccountRepository.delete(attivazioneAccount);
