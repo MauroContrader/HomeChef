@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 @Service
 public class RicettaService {
@@ -147,6 +148,31 @@ public class RicettaService {
         List<String> nomiRicette = new ArrayList<>();
         cRicette.forEach(cRicetta -> nomiRicette.add(cRicetta.getRicetta().getNome()));
         return nomiRicette;
+    }
+
+    public List<String> ingredientiPrincipaliRicettePreferite() {
+        User user = userRepository.findById(HCSecurityContext.getPrincipal().getId())
+            .orElseThrow(() -> new RuntimeException("Utente loggato non trovato"));
+        List<Ricetta> ricettePreferite = user.getRicettePreferite();
+        return ricettePreferite.stream().map(Ricetta::getIngPrincipale).toList();
+    }
+
+    public List<String> ingredientiRicettePreferite() {
+        User user = userRepository.findById(HCSecurityContext.getPrincipal().getId())
+            .orElseThrow(() -> new RuntimeException("Utente loggato non trovato"));
+        List<Ricetta> ricettePreferite = user.getRicettePreferite();
+        List<String> ingredienti = new ArrayList<>();
+        List<String> risultato = new ArrayList<>();
+        ricettePreferite.forEach(ricetta ->
+            ingredienti.addAll(Stream.of(ricetta.getIngredienti().split("\n")).toList()));
+        if (!ingredienti.isEmpty()) {
+            ingredienti.forEach(ingrediente -> {
+                int indice = ingrediente.indexOf("====");
+                String sottostringa = ingrediente.substring(indice +5).trim();
+                risultato.add(sottostringa);
+            });
+        }
+        return risultato.stream().distinct().sorted().toList();
     }
 
 //    public void importaRicette(String path) {

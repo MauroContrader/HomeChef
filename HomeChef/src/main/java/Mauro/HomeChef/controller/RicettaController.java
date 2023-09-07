@@ -36,13 +36,13 @@ public class RicettaController {
             request.getPageNumber()));
     }
 
-    @GetMapping("/imposta-ricetta-preferita")
+    @PutMapping("/imposta-ricetta-preferita")
     @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
     public ResponseEntity<String> salvaRicettaPreferita(@RequestParam Long idRicetta) {
         return ResponseEntity.ok(ricettaService.salvaRicettaPreferita(idRicetta));
     }
 
-    @GetMapping("/imposta-ricetta-non-preferita")
+    @PutMapping("/imposta-ricetta-non-preferita")
     @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
     public ResponseEntity<String> rimuoviRicettaPreferita(@RequestParam Long idRicetta) {
         return ResponseEntity.ok(ricettaService.rimuoviRicettaPreferita(idRicetta));
@@ -72,5 +72,17 @@ public class RicettaController {
     public ResponseEntity<Ricetta> ricettaCasualeByTipologiaIngredienti(@RequestParam(required = false) List<String> ingredienti,
                                                                         @RequestParam(required = false, defaultValue = "Primo") TipoPiatto tipoPiatto) {
         return ResponseEntity.ok(ricettaService.ricettaCasuale(ingredienti, tipoPiatto));
+    }
+
+    @GetMapping("/ingredienti-ricettePreferite")
+    @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
+    public ResponseEntity<List<String>> ingredientiDelleRicettePreferite() {
+        return ResponseEntity.ok(ricettaService.ingredientiRicettePreferite());
+    }
+
+    @GetMapping("/ingredientiPrincipali-ricettePreferite")
+    @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
+    public ResponseEntity<List<String>> ingredientiPrincipaliDelleRicettePreferite() {
+        return ResponseEntity.ok(ricettaService.ingredientiPrincipaliRicettePreferite());
     }
 }
