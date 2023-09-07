@@ -1,5 +1,6 @@
 package Mauro.HomeChef.service;
 
+import Mauro.HomeChef.dto.Enum.TipoPiatto;
 import Mauro.HomeChef.model.ClassificaRicette;
 import Mauro.HomeChef.model.Ricetta;
 import Mauro.HomeChef.model.User;
@@ -12,6 +13,9 @@ import Mauro.HomeChef.security.HCSecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,22 +35,22 @@ public class RicettaService {
     @Autowired
     ClassificaRicetteRepository classificaRicetteRepository;
 
-    public Ricetta ricettaCasuale(List<String> ingredienti, String tipoPiatto) {
-        if (!ingredienti.isEmpty()) {
+    public Ricetta ricettaCasuale(List<String> ingredienti, TipoPiatto tipoPiatto) {
+        if (Objects.nonNull(ingredienti)) {
             switch (ingredienti.size()) {
                 case 1:
-                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto, ingredienti.get(0), "", "", "", "");
+                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto.name(), ingredienti.get(0), "", "", "", "");
                 case 2:
-                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto, ingredienti.get(0), ingredienti.get(1), "", "", "");
+                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto.name(), ingredienti.get(0), ingredienti.get(1), "", "", "");
                 case 3:
-                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto, ingredienti.get(0), ingredienti.get(1), ingredienti.get(2), "", "");
+                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto.name(), ingredienti.get(0), ingredienti.get(1), ingredienti.get(2), "", "");
                 case 4:
-                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto, ingredienti.get(0), ingredienti.get(1), ingredienti.get(2), ingredienti.get(3), "");
+                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto.name(), ingredienti.get(0), ingredienti.get(1), ingredienti.get(2), ingredienti.get(3), "");
                 case 5:
-                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto, ingredienti.get(0), ingredienti.get(1), ingredienti.get(2), ingredienti.get(3), ingredienti.get(4));
+                    return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto.name(), ingredienti.get(0), ingredienti.get(1), ingredienti.get(2), ingredienti.get(3), ingredienti.get(4));
             }
         }
-        return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto, "", "", "", "", "");
+        return ricettaRepository.findRicettaRandomByTipologiaEdIngredienti(tipoPiatto.name(), "", "", "", "", "");
     }
 
     public List<Ricetta> ricette(List<String> ingredienti, String tipoPiatto, long pageSize, long pageNumber) {

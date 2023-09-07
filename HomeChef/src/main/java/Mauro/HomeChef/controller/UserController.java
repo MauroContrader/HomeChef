@@ -56,4 +56,18 @@ public class UserController {
         return ResponseEntity.ok(userService.getAnagraficaUtenteById(id));
     }
 
+    @DeleteMapping("/anagraficaUtente")
+    @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
+    public ResponseEntity<Void> deleteAnagraficaUtente(@RequestParam Long id) {
+        userService.eliminaAnagraficaById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/user")
+    @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
+    public ResponseEntity<Void> deleteUser(@RequestParam Long id) {
+        userService.eliminaUserById(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

@@ -84,4 +84,11 @@ public class UserService {
             throw new RuntimeException("L'utente non ha inserito un anagrafica utente.");
     }
 
+    public void eliminaAnagraficaById(Long idAnagrafica) {
+        anagraficaUtenteRepository.deleteById(idAnagrafica);
+    }
+
+    public void eliminaUserById(Long idUser) {
+        userRepository.deleteById(idUser);
+    }
 }

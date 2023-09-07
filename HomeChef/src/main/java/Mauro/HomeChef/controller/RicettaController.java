@@ -1,6 +1,7 @@
 package Mauro.HomeChef.controller;
 
 import Mauro.HomeChef.config.OpenApiConfig;
+import Mauro.HomeChef.dto.Enum.TipoPiatto;
 import Mauro.HomeChef.dto.Requests.PortataRequest;
 import Mauro.HomeChef.model.Ricetta;
 import Mauro.HomeChef.service.RicettaService;
@@ -35,15 +36,15 @@ public class RicettaController {
             request.getPageNumber()));
     }
 
-    @PostMapping("/imposta-ricetta-preferita")
+    @GetMapping("/imposta-ricetta-preferita")
     @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
-    public ResponseEntity<String> salvaRicettaPreferita(@RequestBody Long idRicetta) {
+    public ResponseEntity<String> salvaRicettaPreferita(@RequestParam Long idRicetta) {
         return ResponseEntity.ok(ricettaService.salvaRicettaPreferita(idRicetta));
     }
 
-    @PostMapping("/imposta-ricetta-non-preferita")
+    @GetMapping("/imposta-ricetta-non-preferita")
     @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
-    public ResponseEntity<String> rimuoviRicettaPreferita(@RequestBody Long idRicetta) {
+    public ResponseEntity<String> rimuoviRicettaPreferita(@RequestParam Long idRicetta) {
         return ResponseEntity.ok(ricettaService.rimuoviRicettaPreferita(idRicetta));
     }
 
@@ -66,9 +67,10 @@ public class RicettaController {
         return ResponseEntity.ok(ricettaService.ricettePiuVotate(numeroElementi));
     }
 
-    @PostMapping("/ricetta-casuale-tipologia-ingredienti")
+    @GetMapping("/ricetta-casuale-tipologia-ingredienti")
     @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
-    public ResponseEntity<Ricetta> ricettaCasualeByTipologiaIngredienti(@RequestBody PortataRequest request) {
-        return ResponseEntity.ok(ricettaService.ricettaCasuale(request.getIngredienti(), request.getTipoPiatto().name()));
+    public ResponseEntity<Ricetta> ricettaCasualeByTipologiaIngredienti(@RequestParam(required = false) List<String> ingredienti,
+                                                                        @RequestParam(required = false, defaultValue = "Primo") TipoPiatto tipoPiatto) {
+        return ResponseEntity.ok(ricettaService.ricettaCasuale(ingredienti, tipoPiatto));
     }
 }
