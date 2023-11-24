@@ -1,6 +1,7 @@
 package Mauro.HomeChef.service;
 
 import Mauro.HomeChef.config.JwtService;
+import Mauro.HomeChef.dto.Enum.Role;
 import Mauro.HomeChef.dto.Requests.AuthenticationRequest;
 import Mauro.HomeChef.dto.Requests.RegisterRequest;
 import Mauro.HomeChef.dto.Responses.AuthenticationResponse;
@@ -58,7 +59,7 @@ public class AuthService {
             throw new RuntimeException("Account non abilitato, puoi abilitarlo tramite il link che ti è stato inviato per email.");
     }
 
-    public String register(RegisterRequest registerRequest) {
+    public void register(RegisterRequest registerRequest) {
         User user = userRepository.findByUsername(registerRequest.getUsername());
         if (Objects.isNull(user)) {
             user = User.builder()
@@ -66,7 +67,7 @@ public class AuthService {
                 .password(bCryptPasswordEncoder.encode(registerRequest.getPassword()))
                 .dataIscrizione(LocalDateTime.now())
                 .emailVerificata(false)
-                .role(registerRequest.getRole())
+                .role(Objects.nonNull(registerRequest.getRole()) ? registerRequest.getRole() : Role.USER)
                 .build();
             userRepository.save(user);
             String linkAttivazione = generaLink(user);
@@ -74,9 +75,8 @@ public class AuthService {
                 registerRequest.getUsername(),
                 "Conferma registrazione",
                 "Benvenuto su HomeChef! Per favore conferma la tua iscrizione cliccando sul seguente link: \n" + linkAttivazione);
-            return linkAttivazione;
-        }
-        throw new RuntimeException("Utente già iscritto.");
+        } else
+            throw new RuntimeException("Utente già iscritto.");
     }
 
     public boolean validitaToken(String token, String username) {

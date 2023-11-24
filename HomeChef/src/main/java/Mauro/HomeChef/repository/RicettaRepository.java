@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
 public interface RicettaRepository extends JpaRepository<Ricetta, Long> {
 
     @Query("SELECT r FROM Ricetta r WHERE r.ingredienti LIKE '%'||:ingrediente||'%'")

@@ -33,9 +33,10 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(
+    public ResponseEntity<Void> register(
         @RequestBody RegisterRequest registerRequest) {
-        return ResponseEntity.ok(authService.register(registerRequest));
+        authService.register(registerRequest);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/cambio-password")

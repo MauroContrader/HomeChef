@@ -9,6 +9,7 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@org.springframework.data.relational.core.mapping.Table
 public class Ricetta {
 
     @Id

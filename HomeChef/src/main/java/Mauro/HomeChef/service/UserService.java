@@ -2,6 +2,7 @@ package Mauro.HomeChef.service;
 
 import Mauro.HomeChef.dto.Enum.Role;
 import Mauro.HomeChef.dto.Requests.AnagraficaUtenteRequest;
+import Mauro.HomeChef.dto.Responses.UserResponse;
 import Mauro.HomeChef.model.AnagraficaUtente;
 import Mauro.HomeChef.model.User;
 import Mauro.HomeChef.repository.AnagraficaUtenteRepository;
@@ -29,13 +30,31 @@ public class UserService {
     @Autowired
     private RicettaRepository ricettaRepository;
 
-    public List<User> getAll(int pageSize, int pageNumber, Role role) {
+    public List<UserResponse> getAll(int pageSize, int pageNumber, Role role) {
 
-        return userRepository.findAll().stream()
-            .filter(user -> user.getRole().equals(role))
-            .skip((long) pageSize * pageNumber)
-            .limit(pageSize)
-            .toList();
+        if (Objects.nonNull(role)) {
+            return userRepository.findAll().stream()
+                .filter(user -> user.getRole().equals(role))
+                .skip((long) pageSize * pageNumber)
+                .limit(pageSize)
+                .map(user -> UserResponse.builder()
+                    .id(user.getId())
+                    .username(user.getUsername())
+                    .role(user.getRole())
+                    .build())
+                .toList();
+        } else {
+            return userRepository.findAll().stream()
+                .skip((long) pageSize * pageNumber)
+                .limit(pageSize)
+                .map(user -> UserResponse.builder()
+                    .id(user.getId())
+                    .username(user.getUsername())
+                    .role(user.getRole())
+                    .build())
+                .toList();
+        }
+
     }
 
     public AnagraficaUtente creaAnagraficaUtente(AnagraficaUtenteRequest anagraficaUtenteRequest) {

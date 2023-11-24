@@ -3,6 +3,7 @@ package Mauro.HomeChef.controller;
 import Mauro.HomeChef.config.OpenApiConfig;
 import Mauro.HomeChef.dto.Enum.Role;
 import Mauro.HomeChef.dto.Requests.AnagraficaUtenteRequest;
+import Mauro.HomeChef.dto.Responses.UserResponse;
 import Mauro.HomeChef.model.AnagraficaUtente;
 import Mauro.HomeChef.model.User;
 import Mauro.HomeChef.service.UserService;
@@ -30,9 +31,9 @@ public class UserController {
 
     @GetMapping("/users")
     @SecurityRequirement(name = OpenApiConfig.HC_SECURITY_SCHEME)
-    public ResponseEntity<List<User>> getAll(@RequestParam(defaultValue = "20") int pageSize,
-                                             @RequestParam(defaultValue = "0") int pageNumber,
-                                             @RequestParam(defaultValue = "USER") Role role) {
+    public ResponseEntity<List<UserResponse>> getAll(@RequestParam(defaultValue = "20") int pageSize,
+                                                     @RequestParam(defaultValue = "0") int pageNumber,
+                                                     @RequestParam(required = false) Role role) {
         return ResponseEntity.ok(userService.getAll(pageSize, pageNumber, role));
     }
 

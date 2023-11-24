@@ -2,6 +2,7 @@ package Mauro.HomeChef.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Table
 public class AttivazioneAccount {
 
     @Id

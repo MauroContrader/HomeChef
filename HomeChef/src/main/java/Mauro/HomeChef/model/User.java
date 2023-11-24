@@ -3,6 +3,7 @@ package Mauro.HomeChef.model;
 import Mauro.HomeChef.dto.Enum.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table
 public class User implements UserDetails {
 
     @Id

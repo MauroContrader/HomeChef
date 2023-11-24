@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.awt.*;
 
@@ -14,6 +15,7 @@ import java.awt.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table
 public class ChatMessage {
 
     @Id

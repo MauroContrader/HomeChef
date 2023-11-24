@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-@Transactional
 public interface AttivazioneAccountRepository extends JpaRepository<AttivazioneAccount, Long> {
 
     long deleteByCodiceDiSicurezza(String codiceDiSicurezza);

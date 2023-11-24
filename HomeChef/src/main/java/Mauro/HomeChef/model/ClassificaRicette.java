@@ -2,6 +2,7 @@ package Mauro.HomeChef.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Getter
 @Setter
@@ -9,6 +10,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table
 public class ClassificaRicette {
 
     @Id
